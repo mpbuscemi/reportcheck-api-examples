@@ -51,4 +51,4 @@ All developers who wish to contribute through code or issues, take a look at the
 
 ## License
 
-MIT, see [LICENSE](https://github.com/GIALaboratory/reportcheck-api-examples/blob/master/LICENSE.txt) for details.
+MIT, see [LICENSE](https://github.com/GIALaboratory/reportcheck-api-examples/blob/master/LICENSE) for details.
