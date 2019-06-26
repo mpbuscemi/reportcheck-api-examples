@@ -1,0 +1,17 @@
+schema:
+  - https://api.reportcheckapi.gia.edu/:
+      headers:
+        Authorization: d662562f-1880-4dad-80b2-826644cd598e
+generates:
+  ./src/types.tsx:
+    documents: "src/**/*.graphql"
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-react-apollo
+    config:
+      skipTypename: true
+      gqlImport: graphql.macro#gql
+  ./src/introspection-results.ts:
+    plugins:
+      - fragment-matcher
