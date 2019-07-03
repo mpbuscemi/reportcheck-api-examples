@@ -19,7 +19,7 @@ You will need the following things properly installed on your computer.
 
 ## Configuring
 
-In order to connect this example to the Report Check API, the `GIA_API_URI` and `GIA_API_KEY` enviroment variables must be 
+In order to connect this example to the Report Check API, the `REACT_APP_GIA_API_URI` and `REACT_APP_GIA_API_KEY` enviroment variables must be 
 set. An example .env file, `.env.example` has been provided. Just replace the placeholders and rename the file to `.env.local`.
 
 More information can be found in the [Create React App Docs](https://facebook.github.io/create-react-app/docs/adding-custom-environment-variables).
