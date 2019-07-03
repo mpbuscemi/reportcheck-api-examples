@@ -41,14 +41,6 @@ yarn start
 * [Typescript](https://www.typescriptlang.org)
 * [GraphQL Codegen](https://graphql-code-generator.com/)
 
-## Contributing
-For help on setting up the repo locally, building, testing, and contributing
-please see [CONTRIBUTING.md](https://github.com/GIALaboratory/reportcheck-api-examples/blob/master/CONTRIBUTING.md).
-
-## Code of Conduct
-All developers who wish to contribute through code or issues, take a look at the
-[CODE_OF_CONDUCT.md](https://github.com/GIALaboratory/reportcheck-api-examples/blob/master/CODE_OF_CONDUCT.md).
-
 ## License
 
 MIT, see [LICENSE](https://github.com/GIALaboratory/reportcheck-api-examples/blob/master/LICENSE) for details.
