@@ -417,6 +417,51 @@
     </table>
     {% endif %}
 
+    {% if data.data.report1.results.__typename == 'MeleeServiceResults' %}
+
+        {% for package in data.data.report1.results.packages | sort(attribute="service_results_number") %}
+
+        <h5>{{ package.service_results_number }}</h5>
+
+        <table>
+            <tr>
+                <td>Issue Date</td>
+                <td>{{ package.issue_date }}</td>
+            </tr>
+            <tr>
+                <td>Diameter</td>
+                <td>{{ package.diameter }}</td>
+            </tr>
+            <tr>
+                <td>Total Carat Weight</td>
+                <td>{{ package.total_carat_weight }}</td>
+            </tr>
+            <tr>
+                <td>Color Range</td>
+                <td>{{ package.color_range }}</td>
+            </tr>
+            <tr>
+                <td>Melee Shape</td>
+                <td>{{ package.melee_shape }}</td>
+            </tr>
+            <tr>
+                <td>Material Test Results</td>
+                <td>{{ package.material_test_results }}</td>
+            </tr>
+            <tr>
+                <td>Number of Items</td>
+                <td>{{ package.number_of_items }}</td>
+            </tr>
+            <tr>
+                <td>Comments</td>
+                <td>{{ package.comments }}</td>
+            </tr>
+        </table>
+
+        {% endfor %}
+
+    {% endif %}
+
     <h2>Links</h2>
 
     <h6>PDF</h6>
