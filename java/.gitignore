@@ -1,0 +1,57 @@
+##########################
+#       Java
+##########################
+*.class
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# Java VM crash logs
+hs_err_pid*
+
+##########################
+#       VS Code
+##########################
+.vscode/*
+
+##########################
+#       Maven
+##########################
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+
+##########################
+#       Eclipse
+##########################
+.metadata
+.classpath
+.project
+.buildpath
+.settings/
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.loadpath
+
+##########################
+#       General
+##########################
+
+# Log file
+*.log
+
+# OSX
+.DS_Store
+
