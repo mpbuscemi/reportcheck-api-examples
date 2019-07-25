@@ -40,6 +40,7 @@ Run the example.  You must provide a report number as an argument.
 `java -cp . com.gia.graphql.GraphQLQueryExample <report_number>`
 
 Below are examples which are available with a sandbox API key:
+
 | Report Number | Report Type                    |
 |---------------|--------------------------------|
 | 2141438171    | Diamond Dossier                |
