@@ -33,6 +33,7 @@ $ echo $REPORT_CHECK_API_ENDPOINT
 Change to source directory and compile:
 
 `cd ./java/src`
+
 `javac com/gia/graphql/GraphQLQueryExample.java`
 
 Run the example.  You must provide a report number as an argument.
