@@ -1,10 +1,10 @@
 schema:
   - https://api.reportcheckapi.gia.edu/:
       headers:
-        Authorization: d662562f-1880-4dad-80b2-826644cd598e
+        Authorization: # ADD YOUR AUTH TOKEN HERE
 generates:
   ./src/types.tsx:
-    documents: "src/**/*.graphql"
+    documents: "../report_check_query.graphql"
     plugins:
       - typescript
       - typescript-operations

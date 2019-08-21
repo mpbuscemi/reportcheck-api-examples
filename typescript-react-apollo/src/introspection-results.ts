@@ -27,7 +27,7 @@ const result: IntrospectionResultData = {
             name: "NarrativeReportResults"
           },
           {
-            name: "SyntheticDiamondGradingReportResults"
+            name: "LabGrownDiamondGradingReportResults"
           },
           {
             name: "MeleeServiceResults"

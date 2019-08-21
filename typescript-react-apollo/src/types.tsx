@@ -18,8 +18,8 @@ export type ClarityCharacteristic = {
   order: Scalars["Int"];
   /**   The clarity characteristic description */
   characteristic: Scalars["String"];
-  /**   Symbol */
-  symbol?: Maybe<Scalars["String"]>;
+  /**   Characteristic image  */
+  image?: Maybe<Scalars["String"]>;
   /**   The location of the clarity characteristic */
   location?: Maybe<Scalars["String"]>;
 };
@@ -82,9 +82,7 @@ export type DiamondGradingReportResults = {
    * for round diamonds and 'length x width x depth' for fancy-shaped diamonds.
    */
   measurements: Scalars["String"];
-  /**   Diamond dimensions listed as 'minimum diameter – maximum diameter x depth'
-   * for round diamonds and 'length x width x depth' for fancy-shaped diamonds.
-   */
+  /**   Weight given in carats, recorded to the nearest hundredth of a carat. One carat is equal to 1/5 of a gram. */
   carat_weight: Scalars["String"];
   /**   The absence of color ranging from colorless to light yellow or brown for
    * diamonds on the D-Z scale. The color grade in terms of hue, tone, and
@@ -113,7 +111,9 @@ export type DiamondGradingReportResults = {
   m2m_rough_data?: Maybe<M2MRoughData>;
   /**   Smoothness of the diamond’s surface, assessed on a scale ranging from excellent to poor. */
   polish?: Maybe<Scalars["String"]>;
-  /**   Smoothness of the diamond's surface, assessed on a scale ranging from excellent to poor. */
+  /**   Exactness of the diamond’s outline, and the shape, placement, and alignment
+   * of its facets, assessed on a scale ranging from excellent to poor.
+   */
   symmetry?: Maybe<Scalars["String"]>;
   /**   Strength and color of the diamond when viewed under long-wave ultraviolet
    * light. A fluorescence description of 'none' represents a range of fluorescence
@@ -135,8 +135,11 @@ export type DiamondGradingReportResults = {
    * it would be described here.
    */
   report_comments?: Maybe<Scalars["String"]>;
+  duplicate_comments?: Maybe<Scalars["String"]>;
   /**   The diamond's proportions, as shown in the proportion diagram */
   proportions?: Maybe<DiamondProportions>;
+  /**   The diamond's country of origin, if applicable */
+  country_of_origin?: Maybe<Scalars["String"]>;
   /**   Additional data fields in machine-readable format */
   data?: Maybe<DiamondData>;
 };
@@ -256,9 +259,9 @@ export type Girdle = {
 
 /**   The base grading report object */
 export type GradingReport = {
-  /**   Date diamond was examined by GIA */
+  /**   Date item was examined by GIA */
   report_date: Scalars["String"];
-  /**   Date diamond was examined by GIA, in ISO-8601 format */
+  /**   Date item was examined by GIA, in ISO-8601 format */
   report_date_iso: Scalars["String"];
   /**   Unique GIA report number registered in GIA's database */
   report_number: Scalars["String"];
@@ -309,11 +312,72 @@ export type IdentificationReportResults = {
   treatment?: Maybe<Scalars["String"]>;
   /**   Additional identifying characteristics or features that are not otherwise represented on the report. */
   report_comments?: Maybe<Scalars["String"]>;
+  duplicate_comments?: Maybe<Scalars["String"]>;
 };
 
 export type InscriptionGraphic = {
   description?: Maybe<Scalars["String"]>;
   image?: Maybe<Scalars["String"]>;
+};
+
+/**   Results for grading reports on synthetic diamonds. */
+export type LabGrownDiamondGradingReportResults = {
+  /**   The identification of the item */
+  identification: Scalars["String"];
+  /**   The outline of the diamond shape and the pattern of the facet arrangement cutting style. */
+  shape_and_cutting_style: Scalars["String"];
+  /**   Diamond dimensions listed as 'minimum diameter – maximum diameter x depth'
+   * for round diamonds and 'length x width x depth' for fancy-shaped diamonds.
+   */
+  measurements: Scalars["String"];
+  /**   Weight given in carats, recorded to the nearest hundredth of a carat. One carat is equal to 1/5 of a gram. */
+  carat_weight: Scalars["String"];
+  /**   The absence of color ranging from colorless to light yellow or brown for
+   * diamonds on the D-Z scale. The color grade in terms of hue, tone, and
+   * saturation for diamonds on the colored diamond grading scale.
+   */
+  color_grade: Scalars["String"];
+  /**   States whether color is natural or treated. In rare cases, color
+   * determination may not be possible and is reported as undetermined. Available
+   * on specific report types such as colored diamond reports only.
+   */
+  color_origin?: Maybe<Scalars["String"]>;
+  /**   Evenness or unevenness of color seen face-up using standard viewing
+   * procedures. Available on specific report types such as colored diamond reports only.
+   */
+  color_distribution?: Maybe<Scalars["String"]>;
+  /**   The relative absence of inclusions and blemishes. Graded on a scale from
+   * Flawless to Included based on size, nature, number, position, and relief of
+   * characteristics visible under 10x magnification.
+   */
+  clarity_grade?: Maybe<Scalars["String"]>;
+  /**   For standard, D-to-Z color, round brilliant diamonds. Cut grade incorporates
+   * the aspects of face-up appearance, design, and craftsmanship.
+   */
+  cut_grade?: Maybe<Scalars["String"]>;
+  /**   Smoothness of the diamond’s surface, assessed on a scale ranging from excellent to poor. */
+  polish?: Maybe<Scalars["String"]>;
+  /**   Exactness of the diamond’s outline, and the shape, placement, and alignment
+   * of its facets, assessed on a scale ranging from excellent to poor.
+   */
+  symmetry?: Maybe<Scalars["String"]>;
+  /**   Strength and color of the diamond when viewed under long-wave ultraviolet
+   * light. A fluorescence description of 'none' represents a range of fluorescence
+   * from indiscernible to very faint.
+   */
+  fluorescence?: Maybe<Scalars["String"]>;
+  /**   List of clarity characteristics plotted on the diagram. Available for Diamond
+   * Grading and Colored Diamond Grading reports.
+   */
+  key_to_symbols?: Maybe<Array<Maybe<ClarityCharacteristic>>>;
+  /**   Any text, symbols, logos, or a unique GIA report number inscribed on the diamond. */
+  inscriptions?: Maybe<Scalars["String"]>;
+  /**   Additional identifying characteristics or features that are not otherwise
+   * represented on the report. If a treatment is detected, such as laser drilling,
+   * it would be described here.
+   */
+  report_comments?: Maybe<Scalars["String"]>;
+  duplicate_comments?: Maybe<Scalars["String"]>;
 };
 
 /**   Links to supplementary files, such as PDFs and images. */
@@ -328,16 +392,21 @@ export type Links = {
   plotting_diagram?: Maybe<Scalars["String"]>;
   /**   Digital image of the item. */
   image?: Maybe<Scalars["String"]>;
+  /**   Digital image of the rough item */
+  rough_image?: Maybe<Scalars["String"]>;
+  /**   Digital video of the rough item. */
+  rough_video?: Maybe<Scalars["String"]>;
+  /**   Digital image of the polished item. */
+  polished_image?: Maybe<Scalars["String"]>;
+  /**   Digital video of the polished item. */
+  polished_video?: Maybe<Scalars["String"]>;
 };
 
 export type M2MRoughData = {
-  rough_control_number?: Maybe<Scalars["String"]>;
-  rough_report_number?: Maybe<Scalars["String"]>;
-  mine_company?: Maybe<Scalars["String"]>;
   rough_image?: Maybe<Scalars["String"]>;
   rough_video?: Maybe<Scalars["String"]>;
-  m2m_image?: Maybe<Scalars["String"]>;
-  m2m_video?: Maybe<Scalars["String"]>;
+  polished_image?: Maybe<Scalars["String"]>;
+  polished_video?: Maybe<Scalars["String"]>;
   country_of_origin?: Maybe<Scalars["String"]>;
 };
 
@@ -394,7 +463,8 @@ export type NarrativeReportResults = {
    * it would be described here.
    */
   report_comments?: Maybe<Scalars["String"]>;
-  /**   Any text, symbols, logos, or a unique GIA report number inscribed on the diamond. */
+  duplicate_comments?: Maybe<Scalars["String"]>;
+  /**   Any text, symbols, logos, or a unique GIA report number inscribed on the item. */
   inscriptions?: Maybe<Scalars["String"]>;
 };
 
@@ -405,7 +475,7 @@ export type PearlIdentReportResults = {
    */
   report_title?: Maybe<Scalars["String"]>;
   item_description?: Maybe<Scalars["String"]>;
-  /**   "Weight of the pearls being identified In grams for mounted or strung pearls.
+  /**   Weight of the pearls being identified In grams for mounted or strung pearls.
    * In carats for cultured loose pearls. Or in carats and grains for natural loose pearls.
    */
   weight: Scalars["String"];
@@ -429,10 +499,13 @@ export type PearlIdentReportResults = {
   environment: Scalars["String"];
   /**   The genus and species of the source mollusk. */
   mollusk: Scalars["String"];
+  /**   The surface condition of the item. */
+  surface?: Maybe<Scalars["String"]>;
   /**   Indicates any detectable treatments. */
   treatment?: Maybe<Scalars["String"]>;
   /**   Additional identifying characteristics or features that are not otherwise represented on the report. */
   report_comments?: Maybe<Scalars["String"]>;
+  duplicate_comments?: Maybe<Scalars["String"]>;
 };
 
 /**   Machine-readable polish grade codes */
@@ -466,7 +539,7 @@ export type ReportResults =
   | DiamondGradingReportResults
   | PearlIdentReportResults
   | NarrativeReportResults
-  | SyntheticDiamondGradingReportResults
+  | LabGrownDiamondGradingReportResults
   | MeleeServiceResults
   | IdentificationReportResults;
 
@@ -479,6 +552,7 @@ export enum ReportTypeCode {
   Ci = "CI",
   Dd = "DD",
   Dor = "DOR",
+  Er = "ER",
   Fc = "FC",
   Dg = "DG",
   Der = "DER",
@@ -488,13 +562,16 @@ export enum ReportTypeCode {
   Mle = "MLE",
   Pg = "PG",
   Pi = "PI",
+  Rg = "RG",
   Ro = "RO",
   Sg = "SG",
   So = "SO",
+  Spor = "SPOR",
   Spr = "SPR",
   Scd = "SCD",
   Sci = "SCI",
   Sdg = "SDG",
+  Tor = "TOR",
   Tr = "TR"
 }
 
@@ -522,65 +599,6 @@ export enum SymmetryGradeCode {
   P = "P"
 }
 
-/**   Results for grading reports on synthetic diamonds. */
-export type SyntheticDiamondGradingReportResults = {
-  /**   The identification of the item */
-  identification: Scalars["String"];
-  /**   The outline of the diamond shape and the pattern of the facet arrangement cutting style. */
-  shape_and_cutting_style: Scalars["String"];
-  /**   Diamond dimensions listed as 'minimum diameter – maximum diameter x depth'
-   * for round diamonds and 'length x width x depth' for fancy-shaped diamonds.
-   */
-  measurements: Scalars["String"];
-  /**   Diamond dimensions listed as 'minimum diameter – maximum diameter x depth'
-   * for round diamonds and 'length x width x depth' for fancy-shaped diamonds.
-   */
-  carat_weight: Scalars["String"];
-  /**   The absence of color ranging from colorless to light yellow or brown for
-   * diamonds on the D-Z scale. The color grade in terms of hue, tone, and
-   * saturation for diamonds on the colored diamond grading scale.
-   */
-  color_grade: Scalars["String"];
-  /**   States whether color is natural or treated. In rare cases, color
-   * determination may not be possible and is reported as undetermined. Available
-   * on specific report types such as colored diamond reports only.
-   */
-  color_origin?: Maybe<Scalars["String"]>;
-  /**   Evenness or unevenness of color seen face-up using standard viewing
-   * procedures. Available on specific report types such as colored diamond reports only.
-   */
-  color_distribution?: Maybe<Scalars["String"]>;
-  /**   The relative absence of inclusions and blemishes. Graded on a scale from
-   * Flawless to Included based on size, nature, number, position, and relief of
-   * characteristics visible under 10x magnification.
-   */
-  clarity_grade?: Maybe<Scalars["String"]>;
-  /**   For standard, D-to-Z color, round brilliant diamonds. Cut grade incorporates
-   * the aspects of face-up appearance, design, and craftsmanship.
-   */
-  cut_grade?: Maybe<Scalars["String"]>;
-  /**   Smoothness of the diamond’s surface, assessed on a scale ranging from excellent to poor. */
-  polish?: Maybe<Scalars["String"]>;
-  /**   Smoothness of the diamond's surface, assessed on a scale ranging from excellent to poor. */
-  symmetry?: Maybe<Scalars["String"]>;
-  /**   Strength and color of the diamond when viewed under long-wave ultraviolet
-   * light. A fluorescence description of 'none' represents a range of fluorescence
-   * from indiscernible to very faint.
-   */
-  fluorescence?: Maybe<Scalars["String"]>;
-  /**   List of clarity characteristics plotted on the diagram. Available for Diamond
-   * Grading and Colored Diamond Grading reports.
-   */
-  key_to_symbols?: Maybe<Array<Maybe<ClarityCharacteristic>>>;
-  /**   Any text, symbols, logos, or a unique GIA report number inscribed on the diamond. */
-  inscriptions?: Maybe<Scalars["String"]>;
-  /**   Additional identifying characteristics or features that are not otherwise
-   * represented on the report. If a treatment is detected, such as laser drilling,
-   * it would be described here.
-   */
-  report_comments?: Maybe<Scalars["String"]>;
-};
-
 /**   Weight of the item */
 export type Weight = {
   /**   The weight of the item */
@@ -588,38 +606,44 @@ export type Weight = {
   /**   The unit of weight */
   weight_unit?: Maybe<Scalars["String"]>;
 };
-export type ReportQueryVariables = {
+export type Get_ReportQueryVariables = {
   report_number: Scalars["String"];
 };
 
-export type ReportQuery = {
-  getReport: Maybe<
-    Pick<
-      GradingReport,
-      | "report_date"
-      | "report_date_iso"
-      | "report_number"
-      | "report_type"
-      | "report_type_code"
-    > & {
-      quota: Maybe<Pick<Quota, "remaining">>;
-      results: Maybe<
+export type Get_ReportQuery = { getReport: Maybe<ResultFieldsFragment> };
 
-        | Pick<
+export type ResultFieldsFragment = Pick<
+  GradingReport,
+  | "report_date"
+  | "report_date_iso"
+  | "report_number"
+  | "report_type"
+  | "report_type_code"
+  | "is_digital"
+  | "info_message"
+> & {
+  quota: Maybe<Pick<Quota, "remaining">>;
+  results: Maybe<
+
+      | Pick<
           IdentificationReportResults,
           | "weight"
           | "measurements"
           | "shape"
           | "cutting_style"
+          | "cutting_style_crown"
+          | "cutting_style_pavilion"
           | "transparency"
           | "color"
+          | "phenomenon"
           | "item_description"
           | "species"
+          | "variety"
           | "geographic_origin"
           | "treatment"
           | "report_comments"
         >
-        | (Pick<
+      | (Pick<
           DiamondGradingReportResults,
           | "shape_and_cutting_style"
           | "measurements"
@@ -632,6 +656,7 @@ export type ReportQuery = {
           | "polish"
           | "symmetry"
           | "fluorescence"
+          | "country_of_origin"
           | "clarity_characteristics"
           | "inscriptions"
           | "report_comments"
@@ -641,7 +666,7 @@ export type ReportQuery = {
               Maybe<
                 Pick<
                   ClarityCharacteristic,
-                  "order" | "characteristic" | "location"
+                  "order" | "characteristic" | "location" | "image"
                 >
               >
             >
@@ -649,8 +674,8 @@ export type ReportQuery = {
           proportions: Maybe<
             Pick<
               DiamondProportions,
-              | "table_pct"
               | "depth_pct"
+              | "table_pct"
               | "crown_angle"
               | "crown_height"
               | "pavilion_angle"
@@ -659,18 +684,6 @@ export type ReportQuery = {
               | "lower_half"
               | "girdle"
               | "culet"
-            >
-          >;
-          m2m_rough_data: Maybe<
-            Pick<
-              M2MRoughData,
-              | "rough_control_number"
-              | "rough_report_number"
-              | "mine_company"
-              | "rough_image"
-              | "rough_video"
-              | "m2m_image"
-              | "m2m_video"
             >
           >;
           data: Maybe<
@@ -686,11 +699,8 @@ export type ReportQuery = {
               >;
               measurements: Maybe<
 
-                | Pick<FancyMeasurements, "length" | "width" | "depth">
-                | Pick<
-                  RoundMeasurements,
-                  "min_diam" | "max_diam" | "depth"
-                >
+                  | Pick<FancyMeasurements, "length" | "width" | "depth">
+                  | Pick<RoundMeasurements, "min_diam" | "max_diam" | "depth">
               >;
               weight: Maybe<Pick<Weight, "weight" | "weight_unit">>;
               color: Maybe<
@@ -703,21 +713,16 @@ export type ReportQuery = {
                 >
               >;
               girdle: Maybe<
-                Pick<
-                  Girdle,
-                  "girdle_condition" | "girdle_pct" | "girdle_size"
-                >
+                Pick<Girdle, "girdle_condition" | "girdle_pct" | "girdle_size">
               >;
               inscription_graphics: Maybe<
-                Array<
-                  Maybe<Pick<InscriptionGraphic, "description" | "image">>
-                >
+                Array<Maybe<Pick<InscriptionGraphic, "description" | "image">>>
               >;
             }
           >;
         })
-        | (Pick<
-          SyntheticDiamondGradingReportResults,
+      | (Pick<
+          LabGrownDiamondGradingReportResults,
           | "identification"
           | "shape_and_cutting_style"
           | "measurements"
@@ -735,11 +740,16 @@ export type ReportQuery = {
         > & {
           key_to_symbols: Maybe<
             Array<
-              Maybe<Pick<ClarityCharacteristic, "order" | "characteristic">>
+              Maybe<
+                Pick<
+                  ClarityCharacteristic,
+                  "order" | "characteristic" | "image" | "location"
+                >
+              >
             >
           >;
         })
-        | Pick<
+      | Pick<
           PearlIdentReportResults,
           | "report_title"
           | "item_description"
@@ -754,7 +764,7 @@ export type ReportQuery = {
           | "treatment"
           | "report_comments"
         >
-        | Pick<
+      | Pick<
           NarrativeReportResults,
           | "report_title"
           | "description"
@@ -762,7 +772,7 @@ export type ReportQuery = {
           | "report_comments"
           | "inscriptions"
         >
-        | {
+      | {
           packages: Maybe<
             Array<
               Maybe<
@@ -782,225 +792,241 @@ export type ReportQuery = {
             >
           >;
         }
-      >;
-      links: Maybe<
-        Pick<
-          Links,
-          "pdf" | "proportions_diagram" | "plotting_diagram" | "image"
-        >
-      >;
-    }
+  >;
+  links: Maybe<
+    Pick<
+      Links,
+      | "pdf"
+      | "proportions_diagram"
+      | "plotting_diagram"
+      | "image"
+      | "rough_image"
+      | "rough_video"
+      | "polished_image"
+      | "polished_video"
+    >
   >;
 };
-
-export const ReportDocument = gql`
-  query Report($report_number: String!) {
-    getReport(report_number: $report_number) {
-      report_date
-      report_date_iso
-      report_number
-      report_type
-      report_type_code
-      quota {
-        remaining
+export const resultFieldsFragmentDoc = gql`
+  fragment resultFields on GradingReport {
+    report_date
+    report_date_iso
+    report_number
+    report_type
+    report_type_code
+    is_digital
+    info_message
+    quota {
+      remaining
+    }
+    results {
+      __typename
+      ... on IdentificationReportResults {
+        weight
+        measurements
+        shape
+        cutting_style
+        cutting_style_crown
+        cutting_style_pavilion
+        transparency
+        color
+        phenomenon
+        item_description
+        species
+        variety
+        geographic_origin
+        treatment
+        report_comments
       }
-      results {
-        ... on IdentificationReportResults {
-          weight
-          measurements
-          shape
-          cutting_style
-          transparency
-          color
-          item_description
-          species
-          geographic_origin
-          treatment
-          report_comments
+      ... on DiamondGradingReportResults {
+        shape_and_cutting_style
+        measurements
+        carat_weight
+        color_grade
+        color_origin
+        color_distribution
+        clarity_grade
+        cut_grade
+        polish
+        symmetry
+        fluorescence
+        country_of_origin
+        clarity_characteristics
+        key_to_symbols {
+          order
+          characteristic
+          location
+          image
         }
-        ... on DiamondGradingReportResults {
-          shape_and_cutting_style
-          measurements
-          carat_weight
-          color_grade
-          color_origin
-          color_distribution
-          clarity_grade
-          cut_grade
+        inscriptions
+        report_comments
+        proportions {
+          depth_pct
+          table_pct
+          crown_angle
+          crown_height
+          pavilion_angle
+          pavilion_depth
+          star_length
+          lower_half
+          girdle
+          culet
+        }
+        data {
+          shape {
+            shape_category
+            shape_code
+            shape_group
+            shape_group_code
+          }
+          measurements {
+            ... on FancyMeasurements {
+              length
+              width
+              depth
+            }
+            ... on RoundMeasurements {
+              min_diam
+              max_diam
+              depth
+            }
+          }
+          weight {
+            weight
+            weight_unit
+          }
+          color {
+            color_grade_code
+            color_modifier
+          }
+          clarity
+          cut
           polish
           symmetry
-          fluorescence
-          clarity_characteristics
-          key_to_symbols {
-            order
-            characteristic
-            location
+          fluorescence {
+            fluorescence_color
+            fluorescence_intensity
           }
-          inscriptions
-          report_comments
-          proportions {
-            table_pct
-            depth_pct
-            crown_angle
-            crown_height
-            pavilion_angle
-            pavilion_depth
-            star_length
-            lower_half
-            girdle
-            culet
+          girdle {
+            girdle_condition
+            girdle_pct
+            girdle_size
           }
-          m2m_rough_data {
-            rough_control_number
-            rough_report_number
-            mine_company
-            rough_image
-            rough_video
-            m2m_image
-            m2m_video
-          }
-          data {
-            shape {
-              shape_category
-              shape_code
-              shape_group
-              shape_group_code
-            }
-            measurements {
-              ... on FancyMeasurements {
-                length
-                width
-                depth
-              }
-              ... on RoundMeasurements {
-                min_diam
-                max_diam
-                depth
-              }
-            }
-            weight {
-              weight
-              weight_unit
-            }
-            color {
-              color_grade_code
-              color_modifier
-            }
-            clarity
-            cut
-            polish
-            symmetry
-            fluorescence {
-              fluorescence_color
-              fluorescence_intensity
-            }
-            girdle {
-              girdle_condition
-              girdle_pct
-              girdle_size
-            }
-            inscription_graphics {
-              description
-              image
-            }
-          }
-        }
-        ... on SyntheticDiamondGradingReportResults {
-          identification
-          shape_and_cutting_style
-          measurements
-          carat_weight
-          color_grade
-          color_origin
-          color_distribution
-          clarity_grade
-          cut_grade
-          polish
-          symmetry
-          fluorescence
-          key_to_symbols {
-            order
-            characteristic
-          }
-          inscriptions
-          report_comments
-        }
-        ... on PearlIdentReportResults {
-          report_title
-          item_description
-          weight
-          measurements
-          shape
-          bodycolor
-          overtone
-          identification
-          environment
-          mollusk
-          treatment
-          report_comments
-        }
-        ... on NarrativeReportResults {
-          report_title
-          description
-          conclusion
-          report_comments
-          inscriptions
-        }
-        ... on MeleeServiceResults {
-          packages {
-            service_results_number
-            issue_date
-            melee_shape
-            diameter
-            total_carat_weight
-            color_range
-            number_of_items
-            material_test_results
-            comments
+          inscription_graphics {
+            description
+            image
           }
         }
       }
-      links {
-        pdf
-        proportions_diagram
-        plotting_diagram
-        image
+      ... on LabGrownDiamondGradingReportResults {
+        identification
+        shape_and_cutting_style
+        measurements
+        carat_weight
+        color_grade
+        color_origin
+        color_distribution
+        clarity_grade
+        cut_grade
+        polish
+        symmetry
+        fluorescence
+        key_to_symbols {
+          order
+          characteristic
+          image
+          location
+        }
+        inscriptions
+        report_comments
       }
+      ... on PearlIdentReportResults {
+        report_title
+        item_description
+        weight
+        measurements
+        shape
+        bodycolor
+        overtone
+        identification
+        environment
+        mollusk
+        treatment
+        report_comments
+      }
+      ... on NarrativeReportResults {
+        report_title
+        description
+        conclusion
+        report_comments
+        inscriptions
+      }
+      ... on MeleeServiceResults {
+        packages {
+          service_results_number
+          issue_date
+          melee_shape
+          diameter
+          total_carat_weight
+          color_range
+          number_of_items
+          material_test_results
+          comments
+        }
+      }
+    }
+    links {
+      pdf
+      proportions_diagram
+      plotting_diagram
+      image
+      rough_image
+      rough_video
+      polished_image
+      polished_video
     }
   }
 `;
-export type ReportComponentProps = Omit<
-  ReactApollo.QueryComponentOptions<ReportQuery, ReportQueryVariables>,
+export const Get_ReportDocument = gql`
+  query GET_REPORT($report_number: String!) {
+    getReport(report_number: $report_number) {
+      ...resultFields
+    }
+  }
+  ${resultFieldsFragmentDoc}
+`;
+export type Get_ReportComponentProps = Omit<
+  ReactApollo.QueryProps<Get_ReportQuery, Get_ReportQueryVariables>,
   "query"
 > &
-  ({ variables: ReportQueryVariables; skip?: false } | { skip: true });
+  ({ variables: Get_ReportQueryVariables; skip?: false } | { skip: true });
 
-export const ReportComponent = (props: ReportComponentProps) => (
-  <ReactApollo.Query<ReportQuery, ReportQueryVariables>
-    query={ReportDocument}
+export const Get_ReportComponent = (props: Get_ReportComponentProps) => (
+  <ReactApollo.Query<Get_ReportQuery, Get_ReportQueryVariables>
+    query={Get_ReportDocument}
     {...props}
   />
 );
 
-export type ReportProps<TChildProps = {}> = Partial<
-  ReactApollo.DataProps<ReportQuery, ReportQueryVariables>
+export type Get_ReportProps<TChildProps = {}> = Partial<
+  ReactApollo.DataProps<Get_ReportQuery, Get_ReportQueryVariables>
 > &
   TChildProps;
-export function withReport<TProps, TChildProps = {}>(
+export function withGet_Report<TProps, TChildProps = {}>(
   operationOptions?: ReactApollo.OperationOption<
     TProps,
-    ReportQuery,
-    ReportQueryVariables,
-    ReportProps<TChildProps>
+    Get_ReportQuery,
+    Get_ReportQueryVariables,
+    Get_ReportProps<TChildProps>
   >
 ) {
   return ReactApollo.withQuery<
     TProps,
-    ReportQuery,
-    ReportQueryVariables,
-    ReportProps<TChildProps>
-  >(ReportDocument, {
-    alias: "withReport",
+    Get_ReportQuery,
+    Get_ReportQueryVariables,
+    Get_ReportProps<TChildProps>
+  >(Get_ReportDocument, {
+    alias: "withGet_Report",
     ...operationOptions
   });
 }
