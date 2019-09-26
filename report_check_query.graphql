@@ -33,6 +33,7 @@ fragment resultFields on GradingReport {
       geographic_origin
       treatment
       report_comments
+      duplicate_comments
     }
     ... on DiamondGradingReportResults {
       shape_and_cutting_style
@@ -56,6 +57,7 @@ fragment resultFields on GradingReport {
       }
       inscriptions
       report_comments
+      duplicate_comments
       proportions {
         depth_pct
         table_pct
@@ -135,6 +137,7 @@ fragment resultFields on GradingReport {
       }
       inscriptions
       report_comments
+      duplicate_comments
     }
     ... on PearlIdentReportResults {
       report_title
@@ -149,12 +152,14 @@ fragment resultFields on GradingReport {
       mollusk
       treatment
       report_comments
+      duplicate_comments
     }
     ... on NarrativeReportResults {
       report_title
       description
       conclusion
       report_comments
+      duplicate_comments
       inscriptions
     }
     ... on MeleeServiceResults {
